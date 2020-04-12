@@ -2,8 +2,6 @@ import React from 'react';
 
 const CountryStatistics = ({ Country, Cases, Status, Date, HasData }) => {
 
-  console.log(HasData);
-
   return (
     <div>
       <div className="row">
@@ -16,7 +14,7 @@ const CountryStatistics = ({ Country, Cases, Status, Date, HasData }) => {
 
         <div className="col-md">
           {(HasData !== undefined && !HasData) ? <span>No data<br /></span> : ""}
-          
+
           <b>Country:</b> {Country}
           <br />
           <b>Cases:</b> {Cases}
