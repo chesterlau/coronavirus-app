@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CountryStatistics = ({ Country, Cases, Status, Date, HasData }) => {
+const CountryStatistics = ({ Country, Cases, TotalRecovered, TotalDeaths, Date, HasData }) => {
 
   return (
     <div>
@@ -17,9 +17,11 @@ const CountryStatistics = ({ Country, Cases, Status, Date, HasData }) => {
 
           <b>Country:</b> {Country}
           <br />
-          <b>Cases:</b> {Cases}
+          <b>Confirmed Cases:</b> {Cases}
           <br />
-          <b>Status:</b> {Status}
+          <b>Total Recovered:</b> {TotalRecovered}
+          <br />
+          <b>Total TotalDeaths:</b> {TotalDeaths}
           <br />
           <b>Updated (UTC):</b> {Date}
         </div>

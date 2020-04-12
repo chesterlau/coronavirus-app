@@ -21,16 +21,21 @@ const CountrySearch = () => {
       });
   }, []);
 
-  const handleOnChange = (event) => {    
+  const handleOnChange = (event) => {
     if (event.length > 0) {
       setShowLoader(true);
-      
-      Axios.get(`${covid19BaseUrl}/total/country/${event[0].slug}/status/confirmed`)
-        .then(res => {
-          console.log(res.data.slice(-1)[0]);
-          setCountryStatistics({ ...res.data.slice(-1)[0], HasData: res.data.slice(-1)[0] != null ? true : false });
+
+      Axios.all([
+        Axios.get(`${covid19BaseUrl}/total/country/${event[0].slug}/status/confirmed`),
+        Axios.get(`${covid19BaseUrl}/total/country/${event[0].slug}/status/recovered`),
+        Axios.get(`${covid19BaseUrl}/total/country/${event[0].slug}/status/deaths`),
+      ])
+        .then(Axios.spread((confirmedResponse, recoveredResponse, deathsResponse) => {
+          // console.log(confirmedResponse.data.slice(-1)[0]);
+          // console.log(recoveredResponse.data.slice(-1)[0]);
+          setCountryStatistics({ ...confirmedResponse.data.slice(-1)[0], TotalRecovered: recoveredResponse.data.slice(-1)[0].Cases, TotalDeaths: deathsResponse.data.slice(-1)[0].Cases, HasData: confirmedResponse.data.slice(-1)[0] != null ? true : false });
           setShowLoader(false);
-        });
+        }));
     }
   }
 
