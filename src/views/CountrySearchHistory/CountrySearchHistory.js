@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import './CountrySearchHistory.css';
 
-const CountrySearchHistory = () => {
+const CountrySearchHistory = ({countryHistories, onDeleteHistory}) => {
 
   return (
     <div>
@@ -12,7 +14,7 @@ const CountrySearchHistory = () => {
       </div>
       <div className="row">
         <div className="col-md">
-          <table class="table">
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -25,33 +27,17 @@ const CountrySearchHistory = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>remove</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>remove</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>remove</td>
-              </tr>
+              {countryHistories.map((item, index) => {
+                return [<tr key={index}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{item.Country}</td>
+                  <td>{item.Cases}</td>
+                  <td>{item.TotalRecovered}</td>
+                  <td>{item.TotalDeaths}</td>
+                  <td>{item.Date}</td>
+                  <td className="removeColumn" onClick={() => onDeleteHistory(item.ApiCallTime)}>remove</td>
+                </tr>]
+              })}
             </tbody>
           </table>
         </div>
@@ -61,4 +47,10 @@ const CountrySearchHistory = () => {
 
 }
 
-export default CountrySearchHistory;
+const mapDispatchToProps = dispatch => {
+  return {
+    onDeleteHistory: (value) => dispatch({ type: 'DELETE_HISTORY', value: value })
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CountrySearchHistory);

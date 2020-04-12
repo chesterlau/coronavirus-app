@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import Axios from 'axios';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import CountryStatistics from '../CountryStatistics/CountryStatistics'
@@ -7,7 +8,7 @@ import Loader from 'react-loader-spinner';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
-const CountrySearch = () => {
+const CountrySearch = props => {
 
   const [countries, setCountries] = useState([]);
   const [countryStatistics, setCountryStatistics] = useState({});
@@ -34,7 +35,23 @@ const CountrySearch = () => {
         .then(Axios.spread((confirmedResponse, recoveredResponse, deathsResponse) => {
           // console.log(confirmedResponse.data.slice(-1)[0]);
           // console.log(recoveredResponse.data.slice(-1)[0]);
-          setCountryStatistics({ ...confirmedResponse.data.slice(-1)[0], TotalRecovered: recoveredResponse.data.slice(-1)[0].Cases, TotalDeaths: deathsResponse.data.slice(-1)[0].Cases, HasData: confirmedResponse.data.slice(-1)[0] != null ? true : false });
+          // console.log(deathsResponse.data.slice(-1)[0]);
+
+          const combinedResponse = {
+            ...confirmedResponse.data.slice(-1)[0],
+            TotalRecovered: (recoveredResponse.data.slice(-1)[0] !== undefined) ? recoveredResponse.data.slice(-1)[0].Cases : null,
+            TotalDeaths: (deathsResponse.data.slice(-1)[0] !== undefined) ? deathsResponse.data.slice(-1)[0].Cases : null,
+            ApiCallTime: new Date(),
+            HasData: (confirmedResponse.data.slice(-1)[0] !== undefined) ? true : false
+          };
+
+          setCountryStatistics(combinedResponse);
+          
+          if(combinedResponse.HasData)
+          {
+            props.onAddHistory(combinedResponse);
+          }
+          
           setShowLoader(false);
         }));
     }
@@ -79,10 +96,22 @@ const CountrySearch = () => {
           <CountryStatistics {...countryStatistics} />
         </div>
         <div className="col-md-8">
-          <CountrySearchHistory />
+          <CountrySearchHistory countryHistories = {props.countryHistories}/>
         </div>
       </div>
     </div>)
 }
 
-export default CountrySearch;
+const mapStateToProps = state => {
+  return {
+    countryHistories: state.CountryStatisticsReducer.countryHistories
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddHistory: (value) => dispatch({ type: 'ADD_HISTORY', value: value })
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CountrySearch);
