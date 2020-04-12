@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import CountryStatisticsReducer from './CountryStatisticsReducers';
+import CountrySearchHistoryReducer from './CountrySearchHistoryReducer';
 
 export default combineReducers({
-  CountryStatisticsReducer,
+  CountrySearchHistoryReducer,
 });

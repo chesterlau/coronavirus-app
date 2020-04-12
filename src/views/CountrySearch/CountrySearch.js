@@ -96,7 +96,7 @@ const CountrySearch = props => {
           <CountryStatistics {...countryStatistics} />
         </div>
         <div className="col-md-8">
-          <CountrySearchHistory countryHistories = {props.countryHistories}/>
+          <CountrySearchHistory countrySearchHistories = {props.countrySearchHistories}/>
         </div>
       </div>
     </div>)
@@ -104,7 +104,7 @@ const CountrySearch = props => {
 
 const mapStateToProps = state => {
   return {
-    countryHistories: state.CountryStatisticsReducer.countryHistories
+    countrySearchHistories: state.CountrySearchHistoryReducer.countrySearchHistories
   }
 }
 

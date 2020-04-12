@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './CountrySearchHistory.css';
 
-const CountrySearchHistory = ({countryHistories, onDeleteHistory}) => {
+const CountrySearchHistory = ({countrySearchHistories, onDeleteHistory}) => {
 
   return (
     <div>
@@ -27,7 +27,7 @@ const CountrySearchHistory = ({countryHistories, onDeleteHistory}) => {
               </tr>
             </thead>
             <tbody>
-              {countryHistories.map((item, index) => {
+              {countrySearchHistories.map((item, index) => {
                 return [<tr key={index}>
                   <th scope="row">{index + 1}</th>
                   <td>{item.Country}</td>
