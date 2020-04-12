@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import CountryStatistics from '../CountryStatistics/CountryStatistics'
+import CountrySearchHistory from '../CountrySearchHistory/CountrySearchHistory';
 import Loader from 'react-loader-spinner';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -73,7 +74,14 @@ const CountrySearch = () => {
         </div>
       </div>
       <br />
-      <CountryStatistics {...countryStatistics} />
+      <div className="row">
+        <div className="col-md-4">
+          <CountryStatistics {...countryStatistics} />
+        </div>
+        <div className="col-md-8">
+          <CountrySearchHistory />
+        </div>
+      </div>
     </div>)
 }
 

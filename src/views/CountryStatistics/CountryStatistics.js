@@ -11,7 +11,6 @@ const CountryStatistics = ({ Country, Cases, TotalRecovered, TotalDeaths, Date, 
         </div>
       </div>
       <div className="row">
-
         <div className="col-md">
           {(HasData !== undefined && !HasData) ? <span>No data<br /></span> : ""}
 
