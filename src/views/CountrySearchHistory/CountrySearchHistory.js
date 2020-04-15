@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { CountrySearchHistoryActionTypes } from '../../redux/Actions/Actions';
 import './CountrySearchHistory.css';
 
 const CountrySearchHistory = ({countrySearchHistories, onDeleteHistory}) => {
@@ -49,7 +50,7 @@ const CountrySearchHistory = ({countrySearchHistories, onDeleteHistory}) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDeleteHistory: (value) => dispatch({ type: 'DELETE_HISTORY', value: value })
+    onDeleteHistory: (value) => dispatch({ type: CountrySearchHistoryActionTypes.DELETE_HISTORY, value: value })
   };
 };
 
