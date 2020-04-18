@@ -4,7 +4,7 @@ import Axios from 'axios';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import CountryStatistics from '../CountryStatistics/CountryStatistics'
 import CountrySearchHistory from '../CountrySearchHistory/CountrySearchHistory';
-import { CountrySearchHistoryActionTypes } from '../../redux/Actions/Actions';
+import { addHistory } from '../../redux/Actions/CountrySearchHistory';
 import Loader from 'react-loader-spinner';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -111,7 +111,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddHistory: (value) => dispatch({ type: CountrySearchHistoryActionTypes.ADD_HISTORY, value: value })
+    onAddHistory: (value) => dispatch(addHistory(value))
   };
 };
 

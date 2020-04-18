@@ -1,4 +1,4 @@
-import { CountrySearchHistoryActionTypes } from '../Actions/Actions';
+import { CountrySearchHistoryActionTypes } from '../Actions/CountrySearchHistory';
 
 const initialState = {
   countrySearchHistories: []
